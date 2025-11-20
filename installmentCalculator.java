@@ -55,9 +55,9 @@ public class EnergyBill {
         double eachInstallment = totalWithInterest / numInstallments;
 
       
-        System.out.printf("With %d installment your bill of $%.2f will be worth $%.2f.%n",
+        System.out.printf("With %d installment your bill of $%.2f will be worth $%.2f\n"),
                 numInstallments, billAmount, totalWithInterest);
-        System.out.printf("Each installment will be worth $%.2f.%n", eachInstallment);
+        System.out.printf("Each installment will be worth $%.2f\n", eachInstallment);
     }
 	
 	
