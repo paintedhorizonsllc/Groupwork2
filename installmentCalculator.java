@@ -12,18 +12,12 @@ public class EnergyBill {
 		System.out.print("Enter customer type: R, r (Residential) or B, b (Business):\n");
         char type = input.next().charAt(0);
 
-        double billAmount;  // this is the ONLY bill variable we use across methods
-
-	
-	
+        double billAmount; 
 	
         // Print amount due and average per day (30 days)
-    
-      
-        
         System.out.println("30 Billing Days");
-        System.out.printf("Average Cost per Day = $%.2f%n",  billAmount / 30.0);
-        // Pass billAmount to the menu
+        System.out.printf("Average Cost per Day = $%.2f\n",  billAmount / 30.0);
+        // Pass billAmount to the displayMenu
         
 	}//end main
 	
@@ -49,7 +43,6 @@ public class EnergyBill {
         } else if (numInstallments == 4) {
             interestRate = 0.0575;
         }
-        // (Per assignment, assume user enters 2, 3 or 4.)
 
         double totalWithInterest = billAmount * (1.0 + interestRate);
         double eachInstallment = totalWithInterest / numInstallments;
