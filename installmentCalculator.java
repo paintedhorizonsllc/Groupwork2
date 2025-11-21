@@ -12,7 +12,7 @@ public class EnergyBill {
 		System.out.print("Enter customer type: R, r (Residential) or B, b (Business):\n");
         char type = input.next().charAt(0);
 
-        double billAmount; 
+        double billAmount = 0; 
 	
         // Print amount due and average per day (30 days)
         System.out.println("30 Billing Days");
