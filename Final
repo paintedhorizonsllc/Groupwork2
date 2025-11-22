@@ -1,0 +1,172 @@
+package Assignment2;
+import java.util.Scanner;
+
+public class EnergyBill {
+
+	static Scanner input = new Scanner(System.in);
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	// main: asks for customer type, calculates billAmount,
+	//       prints it and the average per day, then shows the menu.
+	// --------------------------------------------------------------
+		System.out.print("Enter customer type: R, r (Residential) or B, b (Business):\n");
+		String type = input.next();    
+
+		double billAmount;
+
+		if (type.equalsIgnoreCase("R")) {
+		    billAmount = ResidentialBill(); // calls ResidentialBill method and returns the billAmount
+		} else if (type.equalsIgnoreCase("B")) {
+		    billAmount = BusinessBill(); 	// calls BusinessBill method and returns the billAmount
+		} else {   							//This is not necessary but appropriate
+		    System.out.println("Invalid customer type. Exiting.");
+		    return;
+		}
+
+     
+
+        // Print amount due and average per day (30 days)
+        System.out.printf("%nAmount Due = $%.2f\n", billAmount);
+        System.out.println("30 Billing Days");
+        System.out.printf("Average Cost per Day = $%.2f/n", billAmount / 30.0);
+
+        // Pass billAmount to the menu
+        
+        menuDisplay(billAmount);
+	}//end main
+	
+	public static double ResidentialBill(){
+		double KWH;
+		double fee;
+		
+		System.out.print("Welcome Residential Customer\nEnter the total usage KiloWatt Hours (KWH): \n");
+		KWH = input.nextDouble();
+		
+		fee = KWH * 0.12 + 8.07;
+		fee = fee + fee * 0.05;
+		
+		return fee;
+	}
+	
+	public static double BusinessBill(){
+		double KWH;
+		double fee;
+		int  premiumChannels;
+		
+		System.out.print("Welcome Business Customer\nEnter the total usage KiloWatt Hours (KWH): \n");
+		KWH = input.nextDouble();
+		System.out.print("Enter the number of premium channels used: \n");
+		premiumChannels = input.nextInt();
+		
+		if (KWH <= 1200)
+		{
+			fee = KWH * 0.17 + 47 * premiumChannels + 17.07;
+		}
+		
+		else
+		{
+			fee = 204 + (KWH-1200) * 0.12 + 47 * premiumChannels + 17.07;
+		}
+		fee = fee + fee * 0.08;
+		
+		
+		return fee;
+	}
+	
+	
+	//start of menuOption()
+	public static void menuDisplay(double billAmount) {	//start method
+	    String choice = "";
+
+	    while (!choice.equalsIgnoreCase("E")) {
+	    	System.out.println();
+	        System.out.println("Please select an option:");
+	        System.out.println("I- Enroll in our Installment Plan");
+	        System.out.println("V- View change in consumption: Compare your current bill with");
+            System.out.println("your previous one");
+            System.out.println("E- Exit");
+            
+            choice = input.next();
+
+            if (choice.equalsIgnoreCase("I")) {
+            	System.out.println(".......................................");
+	            System.out.println("If you do not want to make a onetime payment, we have an easy");
+	            System.out.println("installment plan for you. This is an interest charge plan.");
+	            System.out.print("Sign up for the Installment Payment Plan (y/n)?\n");
+
+	            String signUp = input.next();
+	            if (signUp.equalsIgnoreCase("Y")) {//start nested if
+	            InstallmentCalculator(billAmount);
+	            }//end nested if
+	        } //end if
+	        else if (choice.equalsIgnoreCase("V")) {
+	        ChangeInConsumption(billAmount);
+	        } 
+	        else if (choice.equalsIgnoreCase("E")) {
+	        System.out.println("Goodbye.");
+            } 	
+	        else {  //This is not necessary but appropriate
+	        System.out.println("Invalid option. Try again.");
+            }//end else
+	    }//end while
+	}//end menuDisplay method
+	
+	// --------------------------------------------------------------
+	/* This method calculates an amount due repayment plan to be paid off in equal installments 
+	 //over 30 billing days. It prompts the user for the number of the required Installment. 
+	 //It presumes that the user enter a correct number of installments (2, 3, or 4), and 
+	 //does not check for that. It prints to the standard output, the new amount due after 
+	 //applying the required installment plan, and the amount of each installment. */
+    // --------------------------------------------------------------
+	
+    public static void InstallmentCalculator(double billAmount) {//start method
+
+        System.out.print("Enter the number of the required Installment (2, 3, or 4):\n");
+        int numInstallments = input.nextInt();
+
+        double interestRate = 0.0;
+
+        if (numInstallments == 2)
+        {//start if
+            interestRate = 0.0535;
+        }
+        else if (numInstallments == 3) 
+        {
+            interestRate = 0.055;
+        } 
+        else if (numInstallments == 4)
+        {
+            interestRate = 0.0575;
+        }//end else if
+       
+
+        double totalWithInterest = billAmount * (1.0 + interestRate);
+        double eachInstallment = totalWithInterest / numInstallments;
+
+      
+        System.out.printf("With %d installment your bill of $%.2f will be worth $%.2f\n", numInstallments, billAmount, totalWithInterest);
+        System.out.printf("Each installment will be worth $%.2f\n", eachInstallment);
+    }//end InstallmentCalculator method
+	
+	
+
+    public static void ChangeInConsumption(double billAmount) {//start method
+       
+        System.out.print("Enter the amount due of your previous bill\n");
+        double lastAmount = input.nextDouble();
+
+        if (lastAmount > billAmount) {
+            double change = (lastAmount - billAmount) / lastAmount * 100.0;
+            System.out.printf("The change in consumption is decreasing by %.2f%%, when comparing with previous due\n", change);
+        }
+        else if (lastAmount < billAmount) {
+            double change = (billAmount - lastAmount) / lastAmount * 100.0;
+            System.out.printf("The change in consumption is increasing by %.2f%%, when comparing with previous due\n", change);
+        } 
+        else {									//This is not necessary but appropriate
+            System.out.println("There is no change in the consumption.");
+        }//end else
+    }// end ChangeInComsumption method
+
+	
+}//end class
