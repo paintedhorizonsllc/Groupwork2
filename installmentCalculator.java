@@ -9,16 +9,28 @@ public class EnergyBill {
 	// main: asks for customer type, calculates billAmount,
 	//       prints it and the average per day, then shows the menu.
 	// --------------------------------------------------------------
-		System.out.print("Enter customer type: R, r (Residential) or B, b (Business):\n");
+	    System.out.print("Enter customer type: R, r (Residential) or B, b (Business):\n");
         char type = input.next().charAt(0);
 
-        double billAmount = 0; 
-	
+        double billAmount;  
+
+        if (type == 'R' || type == 'r') {
+            billAmount = ResidentialBill();    // calls ResidentialBill method and returns the billAmount
+        } else if (type == 'B' || type == 'b') {
+            billAmount = BusinessBill();       // calls BusinessBill method and returns the billAmount
+        } else {
+            System.out.println("Invalid customer type. Exiting.");
+          return;
+        }
+
         // Print amount due and average per day (30 days)
+        System.out.printf("%nAmount Due = $%.2f\n", billAmount);
         System.out.println("30 Billing Days");
-        System.out.printf("Average Cost per Day = $%.2f\n",  billAmount / 30.0);
-        // Pass billAmount to the displayMenu
+        System.out.printf("Average Cost per Day = $%.2f/n", billAmount / 30.0);
+
+        // Pass billAmount to the menu
         
+        menuDisplay(billAmount);
 	}//end main
 	
 	// --------------------------------------------------------------
@@ -48,8 +60,7 @@ public class EnergyBill {
         double eachInstallment = totalWithInterest / numInstallments;
 
       
-        System.out.printf("With %d installment your bill of $%.2f will be worth $%.2f\n"),
-                numInstallments, billAmount, totalWithInterest);
+        System.out.printf("With %d installment your bill of $%.2f will be worth $%.2f\n",numInstallments, billAmount, totalWithInterest);
         System.out.printf("Each installment will be worth $%.2f\n", eachInstallment);
     }
 	
