@@ -6,8 +6,8 @@ public class EnergyBill {
 	static Scanner input = new Scanner(System.in);
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	// main: asks for customer type, calculates billAmount,
-	//       prints it and the average per day, then shows the menu.
+	// main: asks for customer type, displays billAmount,
+	// prints it and the average per day, then shows the menu.
 	// --------------------------------------------------------------
 		System.out.print("Enter customer type: R, r (Residential) or B, b (Business):\n");
 		String type = input.next();    
@@ -21,20 +21,19 @@ public class EnergyBill {
 		} else {   							//This is not necessary but appropriate
 		    System.out.println("Invalid customer type. Exiting.");
 		    return;
-		}
-
-     
+		}//end else
 
         // Print amount due and average per day (30 days)
         System.out.printf("%nAmount Due = $%.2f\n", billAmount);
         System.out.println("30 Billing Days");
         System.out.printf("Average Cost per Day = $%.2f/n", billAmount / 30.0);
 
-        // Pass billAmount to the menu
-        
+        // Call the method menuDisplay
         menuDisplay(billAmount);
 	}//end main
-	
+	/* This method computes the amount due of a residential bill and returns the result 
+	 * as double. It prompts the user for the total usage KiloWatt Hours (KWH). It presumes 
+	 * that total usage is non-negative and does not check for that. */
 	public static double ResidentialBill(){
 		double KWH;
 		double fee;
@@ -46,8 +45,10 @@ public class EnergyBill {
 		fee = fee + fee * 0.05;
 		
 		return fee;
-	}
-	
+	}//end ResidentialBill method
+	/* This method compute the amount due of a business bill and returns the result 
+	 * as double. It prompts the user for the total usage KiloWatt Hours (KWH). It presumes 
+	 * that total usage is non-negative and does not check for that. */
 	public static double BusinessBill(){
 		double KWH;
 		double fee;
@@ -71,10 +72,13 @@ public class EnergyBill {
 		
 		
 		return fee;
-	}
+	}//end BusinessBill method
+	/* This method presents a menu of the choices available to customers. It prompts 
+	 * the user for an option. It presumes that the user enter a correct choice and 
+	 * does not check for that. Based on user's choice, it calls either method 
+	 * InstallmentCalculator or method ChangeInConsumption. */
 	
-	
-	//start of menuOption()
+
 	public static void menuDisplay(double billAmount) {	//start method
 	    String choice = "";
 
@@ -147,9 +151,13 @@ public class EnergyBill {
         System.out.printf("With %d installment your bill of $%.2f will be worth $%.2f\n", numInstallments, billAmount, totalWithInterest);
         System.out.printf("Each installment will be worth $%.2f\n", eachInstallment);
     }//end InstallmentCalculator method
+    /* This method calculates change in consumption and whether the change is increasing 
+     * or decreasing as determined by the comparison between the amount due of present 
+     * bill and the bill one month ago. It prompts the user number for the amount due of 
+     * her/his previous bill. It should check whether change in consumption is an increasing 
+     * or a decreasing. It prints to the standard output, the value of change in consumption 
+     * as a percentage */
 	
-	
-
     public static void ChangeInConsumption(double billAmount) {//start method
        
         System.out.print("Enter the amount due of your previous bill\n");
@@ -167,6 +175,10 @@ public class EnergyBill {
             System.out.println("There is no change in the consumption.");
         }//end else
     }// end ChangeInComsumption method
+
+	
+}//end class
+
 
 	
 }//end class
