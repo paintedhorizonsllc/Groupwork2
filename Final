@@ -86,16 +86,14 @@ public class EnergyBill {
 	    	System.out.println();
 	        System.out.println("Please select an option:");
 	        System.out.println("I- Enroll in our Installment Plan");
-	        System.out.println("V- View change in consumption: Compare your current bill with");
-            System.out.println("your previous one");
+	        System.out.println("V- View change in consumption: Compare your current bill with\nyour previous one");
             System.out.println("E- Exit");
             
             choice = input.next();
 
             if (choice.equalsIgnoreCase("I")) {
             	System.out.println(".......................................");
-	            System.out.println("If you do not want to make a onetime payment, we have an easy");
-	            System.out.println("installment plan for you. This is an interest charge plan.");
+	            System.out.println("If you do not want to make a onetime payment, we have an easy\ninstallment plan for you. This is an interest charge plan.");
 	            System.out.print("Sign up for the Installment Payment Plan (y/n)?\n");
 
 	            String signUp = input.next();
